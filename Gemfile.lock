@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    hamlit (2.14.6)
+      temple (>= 0.8.2)
+      thor
+      tilt
+    temple (0.8.2)
+    thor (1.1.0)
+    tilt (2.0.10)
+
+PLATFORMS
+  x86_64-darwin-19
+
+DEPENDENCIES
+  hamlit
+
+BUNDLED WITH
+   2.2.3
