@@ -88,3 +88,7 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 
 
+### Project-specific settings
+
+/dist
+
