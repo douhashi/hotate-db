@@ -3,7 +3,7 @@ require 'csv'
 SOURCE_DIR = "data"
 DIST_DIR = "dist"
 
-def upper_part
+def upper_part(page_title)
   <<~EOS
   <!DOCTYPE html>
   <html>
@@ -14,12 +14,13 @@ def upper_part
 
       <!-- Bootstrap CSS -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      <title>#{page_title}</title>
     </head>
     <body>
       <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">KDB</a>
+            <a class="navbar-brand" href="#">#{page_title}</a>
             <div>
               <ul class="navbar-nav">
                 <form class="d-flex">
@@ -77,9 +78,9 @@ def table(header, data)
   table << "</table>\n"
 end
 
-def generate_page(file_path, header, data)
+def generate_page(page_title, file_path, header, data)
   File.open(file_path, "w") do |page|
-    page << upper_part
+    page << upper_part(page_title)
     page << table(header, data)
     page << lower_part
   end
@@ -93,7 +94,7 @@ def html_file_path(data_name, page_num)
   "#{DIST_DIR}/#{data_name}/page_#{page_num}.html"
 end
 
-def generate_htmls(data_name)
+def generate_htmls(page_title, data_name)
   page_num = 1
   header = ""
   data = []
@@ -106,12 +107,12 @@ def generate_htmls(data_name)
 
     data << row
     if (data.size % 100 == 0)
-      generate_page(html_file_path(data_name, page_num), header, data)
+      generate_page(page_title, html_file_path(data_name, page_num), header, data)
       data = []
       page_num += 1
     end
   end
-  generate_page(html_file_path(data_name, page_num), header, data)
+  generate_page(page_title, html_file_path(data_name, page_num), header, data)
 end
 
-generate_htmls("jages_kuriyama_original_2019")
+generate_htmls("JAGES - 栗山町", "jages_kuriyama_original_2019")
