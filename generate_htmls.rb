@@ -3,7 +3,7 @@ require 'csv'
 SOURCE_DIR = "data"
 DIST_DIR = "dist"
 
-def line(col_tag, col_values)
+def row(col_tag, col_values)
   html_row = "  <tr>"
   col_values.each do |value|
     html_row << "<#{col_tag}>#{value}</#{col_tag}>"
@@ -11,28 +11,32 @@ def line(col_tag, col_values)
   html_row << "</tr>\n"
 end
 
-def thead(page, header)
-  page << "<thead>\n"
-  page << line("th", header)
-  page << "</thead>\n"
+def thead(header)
+  temp = "<thead>\n"
+  temp << row("th", header)
+  temp << "</thead>\n"
 end
 
-def tbody(page, data)
-  page << "<tbody>\n"
+def tbody(data)
+  temp = "<tbody>\n"
 
   data.each do |row|
-    page << line("td", row)
+    temp << row("td", row)
   end
 
-  page << "</tbody>\n"
+  temp << "</tbody>\n"
+end
+
+def table(header, data)
+  table = "<table>\n"
+  table << thead(header)
+  table << tbody(data)
+  table << "</table>\n"
 end
 
 def generate_page(file_path, header, data)
   File.open(file_path, "w") do |page|
-    page << "<table>\n"
-    thead(page, header)
-    tbody(page, data)
-    page << "</table>\n"
+    page << table(header, data)
   end
 end
 
