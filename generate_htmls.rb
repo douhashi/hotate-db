@@ -73,7 +73,7 @@ def tbody(data)
 end
 
 def table(header, data)
-  table = "<table>\n"
+  table = "<table class=\"table\">\n"
   table << thead(header)
   table << tbody(data)
   table << "</table>\n"
