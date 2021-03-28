@@ -83,11 +83,11 @@ def html_file_path(data_name, page_num)
   "#{DIST_DIR}/#{data_name}/page_#{page_num}.html"
 end
 
-def generate_page(page_title, data_name, page_num, header, data)
+def generate_page(page_title, data_name, number_of_pages, page_num, header, data)
   File.open(html_file_path(data_name, page_num), "w") do |page|
     page << upper_part(page_title)
     page << table(header, data)
-    page << page_navigations(page_num)
+    page << page_navigations(number_of_pages, page_num)
     page << lower_part
   end
 end
@@ -96,7 +96,7 @@ def source_file_path(data_name)
   "#{SOURCE_DIR}/#{data_name}.csv"
 end
 
-def generate_htmls(page_title, data_name)
+def generate_htmls(page_title, data_name, number_of_pages)
   page_num = 1
   header = ""
   data = []
@@ -109,12 +109,12 @@ def generate_htmls(page_title, data_name)
 
     data << row
     if (data.size % 100 == 0)
-      generate_page(page_title, data_name, page_num, header, data)
+      generate_page(page_title, data_name, number_of_pages, page_num, header, data)
       data = []
       page_num += 1
     end
   end
-  generate_page(page_title, data_name, page_num, header, data)
+  generate_page(page_title, data_name, number_of_pages, page_num, header, data)
 end
 
-generate_htmls("JAGES - 栗山町", "jages_kuriyama_original_2019")
+generate_htmls("KDB", "KDB", 26)
