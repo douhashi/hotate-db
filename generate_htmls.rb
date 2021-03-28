@@ -3,6 +3,49 @@ require 'csv'
 SOURCE_DIR = "data"
 DIST_DIR = "dist"
 
+def upper_part
+  <<~EOS
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    </head>
+    <body>
+      <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">KDB</a>
+            <div>
+              <ul class="navbar-nav">
+                <form class="d-flex">
+                  <button class="btn btn-outline-success">ダウンロード</button>
+                </form>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">トップ</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main>
+  EOS
+end
+
+def lower_part
+  <<~EOS
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    </body>
+  </html>
+  EOS
+end
+
 def row(col_tag, col_values)
   html_row = "  <tr>"
   col_values.each do |value|
@@ -36,7 +79,9 @@ end
 
 def generate_page(file_path, header, data)
   File.open(file_path, "w") do |page|
+    page << upper_part
     page << table(header, data)
+    page << lower_part
   end
 end
 
