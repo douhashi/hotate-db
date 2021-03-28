@@ -3,23 +3,33 @@ NUMBER_OF_PAGE = 26
 BUTTON_THRESHOLD = NUMBER_OF_BUTTON / 2
 DISABLED = " disabled"
 
-def pagenation_upper_part(disabled = "")
+def pagenation_upper_part(current_page, disabled = "")
+  if disabled.empty?
+    link = "./page_#{current_page - 1}.html"
+  else
+    link = "#"
+  end
   <<~EOS
         <div class="container-fluid">
           <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
               <li class="page-item">
-                <a class="page-link#{disabled}" href="#" aria-label="Previous">
+                <a class="page-link#{disabled}" href="#{link}" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
   EOS
 end
 
-def pagenation_lower_part(disabled = "")
+def pagenation_lower_part(current_page, disabled = "")
+  if disabled.empty?
+    link = "./page_#{current_page + 1}.html"
+  else
+    link = "#"
+  end
   <<~EOS
               <li class="page-item">
-                <a class="page-link#{disabled}" href="#" aria-label="Next">
+                <a class="page-link#{disabled}" href="#{link}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
@@ -43,7 +53,7 @@ def page_numbers(first, current_page)
       page_num = first + index
     end
 
-    temp << "      <li class=\"page-item#{active(page_num, current_page)}\"><a class=\"page-link\" href=\"#{page_num}\">#{page_num}</a></li>\n"
+    temp << "      <li class=\"page-item#{active(page_num, current_page)}\"><a class=\"page-link\" href=\"./page_#{page_num}.html\">#{page_num}</a></li>\n"
   end
 
   temp
@@ -55,10 +65,10 @@ def page_navigations(current_page)
     # Previous
     if current_page > BUTTON_THRESHOLD
       first = current_page - (BUTTON_THRESHOLD - 1)
-      temp << pagenation_upper_part
+      temp << pagenation_upper_part(current_page)
     else
       first = 1
-      temp << pagenation_upper_part(DISABLED)
+      temp << pagenation_upper_part(current_page, DISABLED)
     end
 
     # Page numbers
@@ -67,10 +77,10 @@ def page_navigations(current_page)
     # Next
     if current_page > NUMBER_OF_PAGE - BUTTON_THRESHOLD
       last = NUMBER_OF_PAGE
-      temp << pagenation_lower_part(DISABLED)
+      temp << pagenation_lower_part(current_page, DISABLED)
     else
       last = current_page + BUTTON_THRESHOLD
-      temp << pagenation_lower_part
+      temp << pagenation_lower_part(current_page)
     end
 
     temp
