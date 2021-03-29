@@ -124,6 +124,6 @@ def generate_htmls(page_title, data_name, number_of_pages)
   generate_page(page_title, data_name, number_of_pages, page_num, header, data)
 end
 
-generate_htmls("KDB", "kdb", 26)
+generate_htmls("KDB", "KDB", 26)
 generate_htmls("JAGES - 全国共通", "jages_kuriyama_all_2019", 24)
 generate_htmls("JAGES - 栗山町", "jages_kuriyama_original_2019", 26)
