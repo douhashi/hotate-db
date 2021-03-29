@@ -28,7 +28,7 @@ def upper_part(page_title)
                   <button class="btn btn-outline-success">ダウンロード</button>
                 </form>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">トップ</a>
+                  <a class="nav-link active" href="top.html">トップ</a>
                 </li>
               </ul>
             </div>
