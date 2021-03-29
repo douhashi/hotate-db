@@ -4,7 +4,7 @@ require_relative 'build_page_navigations'
 SOURCE_DIR = "data"
 DIST_DIR = "dist"
 
-def upper_part(page_title)
+def upper_part(page_title, data_name)
   <<~EOS
   <!DOCTYPE html>
   <html>
@@ -25,7 +25,7 @@ def upper_part(page_title)
             <div>
               <ul class="navbar-nav">
                 <form class="d-flex">
-                  <button class="btn btn-outline-success">ダウンロード</button>
+                  <a class="btn btn-outline-success" href="../data/#{data_name}.csv">ダウンロード</a>
                 </form>
                 <li class="nav-item">
                   <a class="nav-link active" href="../top.html">トップ</a>
@@ -85,7 +85,7 @@ end
 
 def generate_page(page_title, data_name, number_of_pages, page_num, header, data)
   File.open(html_file_path(data_name, page_num), "w") do |page|
-    page << upper_part(page_title)
+    page << upper_part(page_title, data_name)
     page << table(header, data)
     page << page_navigations(number_of_pages, page_num)
     page << lower_part
