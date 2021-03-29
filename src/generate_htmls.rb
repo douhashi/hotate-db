@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'build_page_navigations'
 
 SOURCE_DIR = "data"
-DIST_DIR = "dist"
+DIST_BASE = "dist"
 
 def upper_part(page_title, data_name)
   <<~EOS
@@ -79,8 +79,12 @@ def table(header, data)
   table << "</table>\n"
 end
 
+def html_dir_path(data_name)
+  "#{DIST_BASE}/#{data_name}"
+end
+
 def html_file_path(data_name, page_num)
-  "#{DIST_DIR}/#{data_name}/page_#{page_num}.html"
+  html_dir_path(data_name) << "/page_#{page_num}.html"
 end
 
 def generate_page(page_title, data_name, number_of_pages, page_num, header, data)
@@ -100,6 +104,9 @@ def generate_htmls(page_title, data_name, number_of_pages)
   page_num = 1
   header = ""
   data = []
+
+  dir_path = html_dir_path(data_name)
+  Dir.mkdir(dir_path) unless Dir.exist?(dir_path)
 
   CSV.foreach(source_file_path(data_name)) do |row|
     if header.empty?
