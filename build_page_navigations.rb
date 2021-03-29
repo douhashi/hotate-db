@@ -2,7 +2,7 @@ NUMBER_OF_BUTTON = 10
 BUTTON_THRESHOLD = NUMBER_OF_BUTTON / 2
 DISABLED = " disabled"
 
-def pagenation_upper_part(current_page)
+def previous_part(current_page)
   if current_page == 1
     disabled = DISABLED
     link = "#"
@@ -23,7 +23,7 @@ def pagenation_upper_part(current_page)
   EOS
 end
 
-def pagenation_lower_part(number_of_pages, current_page)
+def next_part(number_of_pages, current_page)
   if current_page == number_of_pages
     disabled = DISABLED
     link = "#"
@@ -73,13 +73,11 @@ def page_navigations(number_of_pages, current_page)
     else
       first = 1
     end
-    temp << pagenation_upper_part(current_page)
+    temp << previous_part(current_page)
 
     # Page numbers
     temp << page_numbers(number_of_pages, first, current_page)
 
     # Next
-    temp << pagenation_lower_part(number_of_pages, current_page)
-
-    temp
+    temp << next_part(number_of_pages, current_page)
 end
