@@ -1,5 +1,8 @@
 #!/bin/sh
+rm -rf release/**
 
+cp -r assets release/
 cp -r data release/
 cp -r dist/ release/
 cp -r static/ release/
+echo > release/.keep
