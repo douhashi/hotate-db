@@ -28,7 +28,7 @@ def upper_part(page_title, data_name)
                   <a class="btn btn-outline-success" href="../data/#{data_name}.csv">ダウンロード</a>
                 </form>
                 <li class="nav-item">
-                  <a class="nav-link active" href="../top.html">トップ</a>
+                  <a class="nav-link active" href="../index.html">トップ</a>
                 </li>
               </ul>
             </div>
