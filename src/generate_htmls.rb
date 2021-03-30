@@ -15,6 +15,7 @@ def upper_part(page_title, data_name)
 
       <!-- Bootstrap CSS -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      <link href="../assets/stylesheets/style.css" rel="stylesheet" type="text/css">
       <title>#{page_title}</title>
     </head>
     <body>
@@ -36,11 +37,13 @@ def upper_part(page_title, data_name)
         </nav>
       </header>
       <main>
+        <div class="container-fluid">
   EOS
 end
 
 def lower_part
   <<~EOS
+        </div>
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </body>
@@ -57,7 +60,7 @@ def row(col_tag, col_values)
 end
 
 def thead(header)
-  temp = "<thead>\n"
+  temp = "<thead class=\"table-primary\">\n"
   temp << row("th", header)
   temp << "</thead>\n"
 end
@@ -73,7 +76,7 @@ def tbody(data)
 end
 
 def table(header, data)
-  table = "<table class=\"table\">\n"
+  table = "<table class=\"table table-striped table-bordered text-nowrap\">\n"
   table << thead(header)
   table << tbody(data)
   table << "</table>\n"
