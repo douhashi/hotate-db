@@ -1,0 +1,4 @@
+#!/bin/sh
+rm -rf dist/**
+
+ruby src/generate_htmls.rb
